@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080d19">
+    <title>EstateIQ | House Price Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+
+    <nav class="navbar">
+        <a class="brand" href="/">
+            <span class="brand-icon">E</span>
+            <span>Estate<span class="accent">IQ</span></span>
+        </a>
+        <div class="nav-status">
+            <span class="status-dot"></span>
+            ML Prediction Engine
+        </div>
+    </nav>
+
+    <main class="page-container">
+        <section class="hero">
+            <div class="eyebrow">
+                <span class="sparkle">✦</span>
+                INTELLIGENT PROPERTY ANALYTICS
+            </div>
+            <h1>Find the value of your<br>
+                <span class="gradient-text">next investment.</span>
+            </h1>
+            <p class="hero-description">
+                Discover an estimated property value using machine learning.
+                Enter your property details to get started.
+            </p>
+        </section>
+
+        <section class="workspace">
+            <div class="form-panel">
+                <div class="panel-heading">
+                    <div>
+                        <span class="section-label">PROPERTY DETAILS</span>
+                        <h2>Configure your property</h2>
+                    </div>
+                    <div class="house-icon">⌂</div>
+                </div>
+
+                <form id="houseForm">
+                    <div class="form-grid">
+                        <div class="field full-width">
+                            <label for="area">Built-up area</label>
+                            <div class="input-wrap">
+                                <input type="number" id="area" min="100"
+                                    max="100000" step="any"
+                                    placeholder="e.g. 1500" required>
+                                <span class="input-unit">SQ FT</span>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="bedrooms">Bedrooms</label>
+                            <select id="bedrooms" required>
+                                <option value="">Select</option>
+                                <option value="1">1 Bedroom</option>
+                                <option value="2">2 Bedrooms</option>
+                                <option value="3">3 Bedrooms</option>
+                                <option value="4">4 Bedrooms</option>
+                                <option value="5">5 Bedrooms</option>
+                                <option value="6">6+ Bedrooms</option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label for="bathrooms">Bathrooms</label>
+                            <select id="bathrooms" required>
+                                <option value="">Select</option>
+                                <option value="1">1 Bathroom</option>
+                                <option value="2">2 Bathrooms</option>
+                                <option value="3">3 Bathrooms</option>
+                                <option value="4">4 Bathrooms</option>
+                                <option value="5">5+ Bathrooms</option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label for="floors">Floors</label>
+                            <select id="floors" required>
+                                <option value="">Select</option>
+                                <option value="1">1 Floor</option>
+                                <option value="2">2 Floors</option>
+                                <option value="3">3 Floors</option>
+                                <option value="4">4+ Floors</option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label for="age">Property age</label>
+                            <div class="input-wrap">
+                                <input type="number" id="age" min="0"
+                                    max="200" placeholder="e.g. 5" required>
+                                <span class="input-unit">YEARS</span>
+                            </div>
+                        </div>
+
+                        <div class="field full-width">
+                            <label for="location">Property location category</label>
+                            <select id="location" required>
+                                <option value="">Choose a location</option>
+                                <option value="1">City Center</option>
+                                <option value="2">Suburban Area</option>
+                                <option value="3">Rural Area</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="predictButton" class="predict-button">
+                        <span>Estimate Property Value</span>
+                        <span class="button-arrow">↗</span>
+                    </button>
+
+                    <p class="privacy-note">
+                        <span>◆</span> Prediction generated by a machine learning model
+                    </p>
+                </form>
+            </div>
+
+            <aside class="result-panel">
+                <div class="result-top">
+                    <span class="section-label">VALUATION REPORT</span>
+                    <span class="live-badge">
+                        <span class="status-dot"></span> READY
+                    </span>
+                </div>
+
+                <div class="result-illustration" aria-hidden="true">
+                    <div class="illustration-ring ring-one"></div>
+                    <div class="illustration-ring ring-two"></div>
+                    <div class="building building-back"></div>
+                    <div class="building building-front">
+                        <div class="building-window"></div>
+                        <div class="building-window"></div>
+                        <div class="building-door"></div>
+                    </div>
+                    <div class="ground-line"></div>
+                </div>
+
+                <div id="result" class="result-content" aria-live="polite">
+                    <p class="result-caption">ESTIMATED PROPERTY VALUE</p>
+                    <h2 id="price">₹ —</h2>
+                    <p id="resultMessage">
+                        Complete the property details to generate your estimate.
+                    </p>
+                    <p id="error" class="error-message"></p>
+                </div>
+
+                <div class="result-divider"></div>
+
+                <div class="metric-row">
+                    <div class="metric-icon">✦</div>
+                    <div>
+                        <strong>AI-powered analysis</strong>
+                        <p>Based on property features</p>
+                    </div>
+                </div>
+                <div class="metric-row">
+                    <div class="metric-icon">⌁</div>
+                    <div>
+                        <strong>Instant estimation</strong>
+                        <p>Results generated in seconds</p>
+                    </div>
+                </div>
+
+                <p class="disclaimer">
+                    Estimates are for demonstration only and are not
+                    professional property valuations.
+                </p>
+            </aside>
+        </section>
+
+        <footer>
+            <span>EstateIQ</span> · Machine Learning Project
+            <span class="footer-right">Designed for smarter decisions.</span>
+        </footer>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
